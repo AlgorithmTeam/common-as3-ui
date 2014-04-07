@@ -32,31 +32,31 @@ package common.ui.components.impl
             addEvents();
         }
 
-        private function removeEvents():void
+        protected function removeEvents():void
         {
             _skin.removeEventListener( MouseEvent.CLICK, onClickItem );
             _skin.removeEventListener( MouseEvent.MOUSE_OVER, onOverItem );
             _skin.removeEventListener( MouseEvent.MOUSE_OUT, onOutItem );
         }
 
-        private function addEvents():void
+        protected function addEvents():void
         {
             _skin.addEventListener( MouseEvent.CLICK, onClickItem );
             _skin.addEventListener( MouseEvent.MOUSE_OVER, onOverItem );
             _skin.addEventListener( MouseEvent.MOUSE_OUT, onOutItem );
         }
 
-        private function onOutItem( e:MouseEvent = null ):void
+        protected function onOutItem( e:MouseEvent = null ):void
         {
             dispatchEvent( new ListEvent( ListEvent.ITEM_OUT, this ) );
         }
 
-        private function onOverItem( e:MouseEvent = null ):void
+        protected function onOverItem( e:MouseEvent = null ):void
         {
             dispatchEvent( new ListEvent( ListEvent.ITEM_OVER, this ) );
         }
 
-        private function onClickItem( e:MouseEvent = null ):void
+        protected function onClickItem( e:MouseEvent = null ):void
         {
             dispatchEvent( new ListEvent( ListEvent.ITEM_CLICK, this ) );
         }

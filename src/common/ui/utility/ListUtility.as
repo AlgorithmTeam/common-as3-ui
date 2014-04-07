@@ -5,6 +5,7 @@
  */
 package common.ui.utility
 {
+    import common.ui.components.api.IListItem;
     import common.ui.components.impl.FList;
     import common.ui.components.impl.ListItem;
 
@@ -25,7 +26,7 @@ package common.ui.utility
         {
             var viewAssets:MovieClip = list.view;
             itemClass ||= ListItem;
-            var item:ListItem;
+            var item:IListItem;
             var itemAsset:MovieClip;
             for ( var i:int = 0; ; i += 1 )
             {
