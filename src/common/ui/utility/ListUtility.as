@@ -6,8 +6,8 @@
 package common.ui.utility
 {
     import common.ui.components.api.IListItem;
-    import common.ui.components.impl.FList;
-    import common.ui.components.impl.ListItem;
+    import common.ui.components.impl.flash.FList;
+    import common.ui.components.impl.flash.FListItem;
 
     import flash.display.MovieClip;
 
@@ -24,8 +24,8 @@ package common.ui.utility
          */
         public static function buildItems( list:FList, itemClass:Class = null ):void
         {
-            var viewAssets:MovieClip = list.view;
-            itemClass ||= ListItem;
+            var viewAssets:MovieClip = list.skin;
+            itemClass ||= FListItem;
             var item:IListItem;
             var itemAsset:MovieClip;
             for ( var i:int = 0; ; i += 1 )

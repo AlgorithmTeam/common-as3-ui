@@ -3,7 +3,7 @@
  * Date: 2014/4/7
  * All rights reserved.
  */
-package common.ui.components.impl
+package common.ui.components.impl.flash
 {
     import flash.display.MovieClip;
     import flash.events.EventDispatcher;
@@ -12,7 +12,7 @@ package common.ui.components.impl
     import common.ui.effects.api.ICheckButtonEffect;
     import common.ui.events.ButtonEvent;
 
-    [Event(name="click", type="ui.events.ButtonEvent")]
+    [Event(name="click", type="common.ui.events.ButtonEvent")]
     public class CheckButton extends EventDispatcher
     {
         private var currentState:int;

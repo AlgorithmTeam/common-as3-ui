@@ -1,46 +1,37 @@
 /**
  * User: Ray Yee
- * Date: 2014/4/6
+ * Date: 2014/4/12
  * All rights reserved.
  */
-package common.ui.components.impl
+package common.ui.components.impl.flash
 {
-    import flash.display.MovieClip;
-    import flash.events.EventDispatcher;
-    import flash.events.MouseEvent;
 
-    import common.ui.components.api.IListItem;
-
+    import common.ui.components.impl.base.ListItem;
     import common.ui.events.ListEvent;
 
-    [Event(name="click", type="ui.events.ListEvent")]
-    [Event(name="over", type="ui.events.ListEvent")]
-    [Event(name="out", type="ui.events.ListEvent")]
-    public class ListItem extends EventDispatcher implements IListItem
+    import flash.display.MovieClip;
+    import flash.events.MouseEvent;
+
+    public class FListItem extends ListItem implements ISkinnable
     {
-        protected var _triggerType:int;
-        private var _index:int;
         private var _skin:MovieClip;
-        private var _data:*;
 
-        public function ListItem()
+        public function FListItem()
         {
+            super();
         }
 
-        public function setSelectable():void
+        override protected function removeEvents():void
         {
-            addEvents();
-        }
-
-        protected function removeEvents():void
-        {
+            super.removeEvents();
             _skin.removeEventListener( MouseEvent.CLICK, onClickItem );
             _skin.removeEventListener( MouseEvent.MOUSE_OVER, onOverItem );
             _skin.removeEventListener( MouseEvent.MOUSE_OUT, onOutItem );
         }
 
-        protected function addEvents():void
+        override protected function addEvents():void
         {
+            super.addEvents();
             _skin.addEventListener( MouseEvent.CLICK, onClickItem );
             _skin.addEventListener( MouseEvent.MOUSE_OVER, onOverItem );
             _skin.addEventListener( MouseEvent.MOUSE_OUT, onOutItem );
@@ -61,18 +52,12 @@ package common.ui.components.impl
             dispatchEvent( new ListEvent( ListEvent.ITEM_CLICK, this ) );
         }
 
-        public function get index():int
+        public function initialized():void
         {
-            return _index;
-        }
-
-        /**
-         * @private
-         * @param value
-         */
-        public function setIndex( value:int ):void
-        {
-            _index = value;
+            if (_selectable)
+            {
+                addEvents();
+            }
         }
 
         public function get skin():MovieClip
@@ -87,22 +72,7 @@ package common.ui.components.impl
         public function setSkin( value:MovieClip ):void
         {
             _skin = value;
+            initialized();
         }
-
-        public function get data():*
-        {
-            return _data;
-        }
-
-        public function set data( value:* ):void
-        {
-            _data = value;
-        }
-
-        public function get triggerType():int
-        {
-            return _triggerType;
-        }
-
     }
 }

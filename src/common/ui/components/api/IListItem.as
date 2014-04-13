@@ -9,18 +9,16 @@ package common.ui.components.api
 
     public interface IListItem extends IEventDispatcher
     {
-        /**
-         * @private
-         * @param value
-         */
-        function setIndex( value:int ):void;
-
         function get index():int;
 
         function setSelectable():void;
 
+        function setUnSelectable():void;
+
         function get data():*;
 
         function set data( value:* ):void;
+
+        function get triggerType():int;
     }
 }

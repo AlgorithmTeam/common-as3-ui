@@ -32,7 +32,7 @@ package common.ui.utility.tween
 
         private static function createSimpleTween():ITween
         {
-            return new SimpleTween();
+            return new EazeTweenAdapter();
         }
 
     }

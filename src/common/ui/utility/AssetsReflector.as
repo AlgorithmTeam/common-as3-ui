@@ -55,13 +55,13 @@ package common.ui.utility
                     else
                     {
                         skinProcessor = new (getDefinitionByName( node.parent().@type ) as Class)();
-                        if ( skinProcessor.hasOwnProperty( "setSkin" ) ) skinProcessor.setSkin( art );
+                        if ( skinProcessor.hasOwnProperty( "setSkin" ) ) skinProcessor.setSkin( child );
                         mapped[node.parent().@name] = skinProcessor;
                     }
                     //Default process
                     if ( child is MovieClip )
                     {
-                        (child as MovieClip).stop();
+                        (child as MovieClip).gotoAndStop(1);
                     }
                 }
             }

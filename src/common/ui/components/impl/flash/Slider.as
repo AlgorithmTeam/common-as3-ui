@@ -3,7 +3,7 @@
  * Date: 2014/4/2
  * All rights reserved.
  */
-package common.ui.components.impl
+package common.ui.components.impl.flash
 {
     import flash.display.Sprite;
     import flash.events.MouseEvent;
@@ -41,13 +41,13 @@ package common.ui.components.impl
 
         private function addTrackEvent():void
         {
-            track.addEventListener( MouseEvent.MOUSE_DOWN, sliderClick );
+            track.addEventListener( MouseEvent.MOUSE_DOWN, sliderClick, false, 0, true );
         }
 
         private function addStageEvents():void
         {
-            track.stage.addEventListener( MouseEvent.MOUSE_UP, sliderMouseUp );
-            track.stage.addEventListener( MouseEvent.MOUSE_MOVE, sliderMouseMove );
+            track.stage.addEventListener( MouseEvent.MOUSE_UP, sliderMouseUp, false, 0, true );
+            track.stage.addEventListener( MouseEvent.MOUSE_MOVE, sliderMouseMove, false, 0, true );
         }
 
         private function removeStageEvents():void

@@ -7,6 +7,6 @@ package common.ui.utility.tween
 {
     public interface ITween
     {
-        function to(target:*, duration:Number, options:Object):ITweenListener;
+        function to(target:*, duration:Number, options:Object):TweenListener;
     }
 }

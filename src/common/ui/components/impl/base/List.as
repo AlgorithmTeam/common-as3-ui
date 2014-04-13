@@ -3,17 +3,17 @@
  * Date: 2014/4/6
  * All rights reserved.
  */
-package common.ui.components.impl
+package common.ui.components.impl.base
 {
-    import flash.events.EventDispatcher;
-
     import common.ui.components.api.IList;
     import common.ui.components.api.IListItem;
     import common.ui.events.ListEvent;
 
-    [Event(name="click", type="ui.events.ListEvent")]
-    [Event(name="over", type="ui.events.ListEvent")]
-    [Event(name="out", type="ui.events.ListEvent")]
+    import flash.events.EventDispatcher;
+
+    [Event(name="click", type="common.ui.events.ListEvent")]
+    [Event(name="over", type="common.ui.events.ListEvent")]
+    [Event(name="out", type="common.ui.events.ListEvent")]
     public class List extends EventDispatcher implements IList
     {
         private var itemMap:Vector.<IListItem>;
@@ -26,7 +26,7 @@ package common.ui.components.impl
         public function addItem( item:IListItem ):void
         {
             itemMap.push( item );
-            item.setIndex( itemMap.length - 1 );
+            (item as ListItem).setIndex( itemMap.length - 1 );
             item.setSelectable();
             addItemEvents( item );
         }

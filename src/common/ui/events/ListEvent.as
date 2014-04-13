@@ -5,9 +5,9 @@
  */
 package common.ui.events
 {
-    import flash.events.Event;
+    import common.ui.components.api.IListItem;
 
-    import common.ui.components.impl.ListItem;
+    import flash.events.Event;
 
     public class ListEvent extends Event
     {
@@ -15,9 +15,9 @@ package common.ui.events
         public static const ITEM_OVER:String = "over";
         public static const ITEM_OUT:String = "out";
 
-        public var processingListItem:ListItem;
+        public var processingListItem:IListItem;
 
-        public function ListEvent( type:String, item:ListItem, bubbles:Boolean = false, cancelable:Boolean = false )
+        public function ListEvent( type:String, item:IListItem, bubbles:Boolean = false, cancelable:Boolean = false )
         {
             super( type, bubbles, cancelable );
             processingListItem = item;
