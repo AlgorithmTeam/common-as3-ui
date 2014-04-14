@@ -5,11 +5,12 @@
  */
 package common.ui.components.impl.flash
 {
+    import common.ui.components.api.IDisplayObject;
     import common.ui.components.impl.base.List;
 
     import flash.display.MovieClip;
 
-    public class FList extends List implements ISkinnable
+    public class FList extends List implements ISkinnable, IDisplayObject
     {
         private var _skin:MovieClip;
 
@@ -20,6 +21,16 @@ package common.ui.components.impl.flash
 
         public function initialized():void
         {
+        }
+
+        public function get visible():Boolean
+        {
+            return _skin.visible;
+        }
+
+        public function set visible( value:Boolean ):void
+        {
+            _skin.visible = value;
         }
 
         public function setSkin( value:MovieClip ):void

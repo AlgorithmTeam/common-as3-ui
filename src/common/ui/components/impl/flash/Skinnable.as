@@ -5,18 +5,30 @@
  */
 package common.ui.components.impl.flash
 {
+    import common.ui.components.api.IDisplayObject;
+
     import flash.display.MovieClip;
     import flash.events.Event;
 
     /**
      * 换肤功能
      */
-    public class Skinnable implements ISkinnable
+    public class Skinnable implements ISkinnable, IDisplayObject
     {
         protected var _skin:MovieClip;
 
         public function Skinnable()
         {
+        }
+
+        public function get visible():Boolean
+        {
+            return _skin.visible;
+        }
+
+        public function set visible( value:Boolean ):void
+        {
+            _skin.visible = value;
         }
 
         public function initialized():void

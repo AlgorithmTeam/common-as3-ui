@@ -5,6 +5,7 @@
  */
 package common.ui.components.impl.flash
 {
+    import common.ui.components.api.IDisplayObject;
     import common.ui.events.ButtonEvent;
 
     import flash.display.MovieClip;
@@ -13,7 +14,7 @@ package common.ui.components.impl.flash
     import flash.events.MouseEvent;
 
     [Event(name="click", type="common.ui.events.ButtonEvent")]
-    public class StateButton extends EventDispatcher implements ISkinnable
+    public class StateButton extends EventDispatcher implements ISkinnable, IDisplayObject
     {
         private var _currentState:int = 0;
         private var _skin:MovieClip;
@@ -40,10 +41,25 @@ package common.ui.components.impl.flash
             _skin.addEventListener( MouseEvent.CLICK, onClickToChangeState, false, 0, true );
         }
 
+        public function get visible():Boolean
+        {
+            return _skin.visible;
+        }
+
+        public function set visible( value:Boolean ):void
+        {
+            _skin.visible = value;
+        }
+
         public function setSkin( value:MovieClip ):void
         {
             _skin = value;
             initialized();
+        }
+
+        public function get skin():MovieClip
+        {
+            return _skin;
         }
     }
 }

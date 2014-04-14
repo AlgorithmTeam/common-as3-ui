@@ -6,13 +6,14 @@
 package common.ui.components.impl.flash
 {
 
+    import common.ui.components.api.IDisplayObject;
     import common.ui.components.impl.base.ListItem;
     import common.ui.events.ListEvent;
 
     import flash.display.MovieClip;
     import flash.events.MouseEvent;
 
-    public class FListItem extends ListItem implements ISkinnable
+    public class FListItem extends ListItem implements ISkinnable, IDisplayObject
     {
         private var _skin:MovieClip;
 
@@ -58,6 +59,16 @@ package common.ui.components.impl.flash
             {
                 addEvents();
             }
+        }
+
+        public function get visible():Boolean
+        {
+            return _skin.visible;
+        }
+
+        public function set visible( value:Boolean ):void
+        {
+            _skin.visible = value;
         }
 
         public function get skin():MovieClip
