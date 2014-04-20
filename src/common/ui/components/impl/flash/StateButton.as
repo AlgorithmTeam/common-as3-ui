@@ -7,6 +7,7 @@ package common.ui.components.impl.flash
 {
     import common.ui.components.api.IDisplayObject;
     import common.ui.events.ButtonEvent;
+    import common.ui.utility.SkinUtility;
 
     import flash.display.MovieClip;
     import flash.events.EventDispatcher;
@@ -16,7 +17,7 @@ package common.ui.components.impl.flash
     [Event(name="click", type="common.ui.events.ButtonEvent")]
     public class StateButton extends EventDispatcher implements ISkinnable, IDisplayObject
     {
-        private var _currentState:int = 0;
+        private var _currentState:int = 1;
         private var _skin:MovieClip;
 
         public function StateButton( target:IEventDispatcher = null )
@@ -37,6 +38,8 @@ package common.ui.components.impl.flash
 
         public function initialized():void
         {
+            _skin.gotoAndStop( _currentState );
+
             //use week reference, auto release.
             _skin.addEventListener( MouseEvent.CLICK, onClickToChangeState, false, 0, true );
         }
@@ -54,12 +57,23 @@ package common.ui.components.impl.flash
         public function setSkin( value:MovieClip ):void
         {
             _skin = value;
-            initialized();
+            SkinUtility.getAddedToStageLifecycle( _skin, initialized );
         }
 
         public function get skin():MovieClip
         {
             return _skin;
+        }
+
+        public function get currentState():int
+        {
+            return _currentState;
+        }
+
+        public function setState( value:int ):void
+        {
+            _currentState = value;
+            _skin.gotoAndStop(_currentState);
         }
     }
 }

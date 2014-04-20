@@ -12,6 +12,8 @@ package common.ui.components.impl.flash
     import common.ui.effects.api.ICheckButtonEffect;
     import common.ui.events.ButtonEvent;
 
+    import flash.utils.getTimer;
+
     [Event(name="click", type="common.ui.events.ButtonEvent")]
     public class CheckButton extends EventDispatcher
     {
@@ -19,6 +21,7 @@ package common.ui.components.impl.flash
         private var stateOne:MovieClip;
         private var stateTwo:MovieClip;
         private var effect:ICheckButtonEffect;
+        private var previousClickTime:Number = 0.0;
 
         public function CheckButton( stateOneParam:MovieClip, stateTwoParam:MovieClip, effectParam:ICheckButtonEffect = null )
         {
@@ -39,9 +42,14 @@ package common.ui.components.impl.flash
 
         private function onClickStateButton( e:MouseEvent = null ):void
         {
-            if ( e.currentTarget == stateOne ) setState( 2 );
-            else if ( e.currentTarget == stateTwo ) setState( 1 );
-            dispatchEvent( new ButtonEvent( ButtonEvent.CLICK, currentState ) );
+            var clickedTime:Number = getTimer();
+            if (clickedTime - previousClickTime > 500)
+            {
+                if ( e.currentTarget == stateOne ) setState( 2 );
+                else if ( e.currentTarget == stateTwo ) setState( 1 );
+                dispatchEvent( new ButtonEvent( ButtonEvent.CLICK, currentState ) );
+                previousClickTime = clickedTime;
+            }
         }
 
         public function setState( value:int ):void

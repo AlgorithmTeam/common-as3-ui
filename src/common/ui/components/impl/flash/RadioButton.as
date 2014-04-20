@@ -6,12 +6,15 @@
 package common.ui.components.impl.flash
 {
     import common.ui.components.api.IDisplayObject;
+    import common.ui.events.ButtonEvent;
+    import common.ui.utility.SkinUtility;
 
     import flash.display.MovieClip;
     import flash.events.EventDispatcher;
     import flash.events.MouseEvent;
     import flash.utils.Dictionary;
 
+    [Event(name="click", type="common.ui.events.ButtonEvent")]
     public class RadioButton extends EventDispatcher implements IDisplayObject, ISkinnable
     {
         private static const UNSELECTED:int = 1;
@@ -67,6 +70,7 @@ package common.ui.components.impl.flash
                         }
                     }
                     setState( SELECTED );
+                    dispatchEvent( new ButtonEvent( ButtonEvent.CLICK ) );
                 }
             }
         }
@@ -79,6 +83,8 @@ package common.ui.components.impl.flash
         public function setSkin( value:MovieClip ):void
         {
             _skin = value;
+            _skin.buttonMode = true;
+            SkinUtility.getAddedToStageLifecycle( _skin, initialized );
         }
     }
 }

@@ -11,11 +11,8 @@ package common.ui.utility
 
     import flash.display.MovieClip;
 
-    public class ListUtility
+    public class ListFactory
     {
-        public function ListUtility()
-        {
-        }
 
         /**
          * 给Flash显示对象做皮肤的列表 构建Item

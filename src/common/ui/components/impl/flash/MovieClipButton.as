@@ -27,6 +27,8 @@ package common.ui.components.impl.flash
 
         public function initialized():void
         {
+            _skin.stop();
+
             //use week reference, auto release.
             _skin.addEventListener( MouseEvent.CLICK, onClickButton, false, 0, true );
             _skin.addEventListener( MouseEvent.ROLL_OVER, onMouseOverButton, false, 0, true );

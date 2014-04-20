@@ -8,15 +8,13 @@ package common.ui.utility
     import flash.display.DisplayObject;
     import flash.display.DisplayObjectContainer;
     import flash.display.MovieClip;
+    import flash.system.System;
     import flash.utils.describeType;
     import flash.utils.getDefinitionByName;
     import flash.utils.getQualifiedClassName;
 
     public class AssetsReflector
     {
-        public function AssetsReflector()
-        {
-        }
 
         /**
          * 创建美术资源
@@ -40,32 +38,51 @@ package common.ui.utility
         public static function mapArtTo( art:DisplayObjectContainer, mapped:Object ):void
         {
             var mappedDescribe:XML = describeType( mapped );
-            var child:DisplayObject, childClassName:String;
-            var skinProcessor:*;
+            var child:DisplayObject;
+            var childClassName:String;
+            var skin:*;
+            var skinName:String;
+            var skinDefinitionName:String;
+            var skinDefinition:Class;
             for each( var node:XML in mappedDescribe..variable.metadata.(@name == "Map") )
             {
-                child = searchChild( art, node.parent().@name );
+                skinName = node.parent().@name;
+                child = searchChild( art, skinName );
                 if ( child != null )
                 {
+                    skinDefinitionName = node.parent().@type;
                     childClassName = getQualifiedClassName( child );
-                    //如果要映射成的类型是显示对象资源的类型  那就直接映射
-                    if ( childClassName == node.parent().@type )
-                        mapped[node.parent().@name] = child;
-                    //如果metadata有skin字段   且该显示对象的类型和skin的值是一样的  那实例化待注入的变量并将skin通过构造函数传入
+                    if ( childClassName == skinDefinitionName )
+                    {
+                        //如果要映射成的类型是显示对象资源的类型  那就直接映射
+                        mapped[skinName] = child;
+                    }
                     else
                     {
-                        skinProcessor = new (getDefinitionByName( node.parent().@type ) as Class)();
-                        if ( skinProcessor.hasOwnProperty( "setSkin" ) ) skinProcessor.setSkin( child );
-                        mapped[node.parent().@name] = skinProcessor;
+                        skinDefinition = getDefinitionByName( skinDefinitionName ) as Class;
+                        if ( child is skinDefinition )
+                        {
+                            //如果要映射成的类型是显示对象资源的类型  那就直接映射
+                            mapped[skinName] = child;
+                        }
+                        else
+                        {
+                            //如果metadata有skin字段   且该显示对象的类型和skin的值是一样的  那实例化等待注入的变量并将skin传入
+                            skin = new skinDefinition();
+                            if ( skin.hasOwnProperty( "setSkin" ) ) skin.setSkin( child );
+                            mapped[skinName] = skin;
+                        }
                     }
                     //Default process
                     if ( child is MovieClip )
                     {
-                        (child as MovieClip).gotoAndStop(1);
+                        (child as MovieClip).gotoAndStop( 1 );
                     }
                 }
             }
             if ( mapped.hasOwnProperty( "setSkin" ) ) mapped.setSkin( art );
+
+            System.disposeXML( mappedDescribe );
         }
 
         /**

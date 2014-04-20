@@ -6,9 +6,9 @@
 package common.ui.components.impl.flash
 {
     import common.ui.components.api.IDisplayObject;
+    import common.ui.utility.SkinUtility;
 
     import flash.display.MovieClip;
-    import flash.events.Event;
 
     /**
      * 换肤功能
@@ -38,20 +38,7 @@ package common.ui.components.impl.flash
         public function setSkin( value:MovieClip ):void
         {
             _skin = value;
-            if ( _skin.stage )
-            {
-                initialized();
-            }
-            else
-            {
-                _skin.addEventListener( Event.ADDED_TO_STAGE, onSkinAddedToStage );
-            }
-        }
-
-        private function onSkinAddedToStage( e:Event ):void
-        {
-            _skin.removeEventListener( Event.ADDED_TO_STAGE, onSkinAddedToStage );
-            initialized();
+            SkinUtility.getAddedToStageLifecycle( _skin, initialized );
         }
     }
 }
