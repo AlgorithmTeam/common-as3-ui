@@ -23,11 +23,12 @@ package common.ui.utility
          * @param viewInstance
          * @param artCls
          */
-        public static function createArtToView( viewInstance:DisplayObjectContainer, artCls:Class ):void
+        public static function createArtToView( viewInstance:DisplayObjectContainer, artCls:Class ):MovieClip
         {
             var _assets:MovieClip = new artCls as MovieClip;
             viewInstance.addChild( _assets );
             mapArtTo( _assets, viewInstance );
+            return _assets;
         }
 
         /**

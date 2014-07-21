@@ -17,8 +17,9 @@ package common.ui.utility
      */
     public class ModalFactory
     {
-        private static var depends:DisplayObject;
+        private static var depends:*;
         private static var modal:Sprite;
+        private static var currentStage:Stage;
 
         /**
          * Engine初始化时调用
@@ -26,6 +27,7 @@ package common.ui.utility
          */
         public static function initialize( s:Stage ):void
         {
+            currentStage = s;
             s.addEventListener( Event.RESIZE, onStageResize );
             function onStageResize( e:Event ):void
             {
@@ -51,7 +53,7 @@ package common.ui.utility
          * @param value
          * @return
          */
-        public static function getModal( value:DisplayObject ):Sprite
+        public static function getModal( value:* ):Sprite
         {
             var shape:Sprite;
             if ( modal != null )
@@ -67,8 +69,8 @@ package common.ui.utility
                 g.beginFill( 0x000000, .3 );
                 g.drawRect( 0, 0, 100, 100 );
                 g.endFill();
-                shape.width = value.stage.stageWidth;
-                shape.height = value.stage.stageHeight;
+                shape.width = currentStage.stageWidth;
+                shape.height = currentStage.stageHeight;
             }
             depends = value;
             var container:DisplayObjectContainer = value.parent;
